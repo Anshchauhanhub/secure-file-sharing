@@ -1,8 +1,8 @@
 import eventlet
 eventlet.monkey_patch()  # Ensure this is at the top
-
+import os
 from flask import Flask, render_template, request, jsonify, url_for
-from flask_socketio import SocketIO, join_room, leave_room, emit
+from flask_socketio import SocketIO, join_room, emit
 import uuid
 import logging
 from datetime import datetime, timedelta
@@ -138,4 +138,4 @@ def handle_transfer_complete(data):
     logger.info(f"Transfer complete for room {data['room_id']}")
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host='0.0.0.0', port=5001)
+    socketio.run(app, host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
